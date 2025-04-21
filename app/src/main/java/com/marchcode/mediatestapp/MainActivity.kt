@@ -1,9 +1,11 @@
 package com.marchcode.mediatestapp
 
+import android.content.ContentValues
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.provider.MediaStore
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.PickVisualMediaRequest
@@ -22,7 +24,6 @@ import androidx.media3.transformer.EditedMediaItem
 import androidx.media3.transformer.Effects
 import androidx.media3.transformer.ExportException
 import androidx.media3.transformer.ExportResult
-import androidx.media3.transformer.ProgressHolder
 import androidx.media3.transformer.Transformer
 import com.marchcode.mediatestapp.databinding.ActivityMainBinding
 import java.io.File
@@ -103,7 +104,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun saveVideo(){
+            val contentValues = ContentValues().apply {
+                put(MediaStore.MediaColumns.DISPLAY_NAME, outputFile!!.name)
+                put(MediaStore.MediaColumns.MIME_TYPE, "video/mp4")
+                put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_MOVIES + "/MyAppVideos")
+                put(MediaStore.MediaColumns.IS_PENDING, 1)
+            }
 
+            val resolver = this.contentResolver
+            val videoUri = resolver.insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, contentValues)
+
+            videoUri?.let { uri ->
+                resolver.openOutputStream(uri)?.use { outputStream ->
+                    outputStream.write(outputFile!!.readBytes())
+                }
+
+                contentValues.clear()
+                contentValues.put(MediaStore.MediaColumns.IS_PENDING, 0)
+                resolver.update(uri, contentValues, null, null)
+            }
     }
 
     private fun trimVideo() {
