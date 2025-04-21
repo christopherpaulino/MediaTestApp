@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <LinearLayout
+            android:id="@+id/button_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/add_video_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:text="Add Video" />
+
+            <Button
+                android:id="@+id/flip_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="Flip" />
+
+            <Button
+                android:id="@+id/rotate_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_gravity="center_vertical"
+                android:enabled="false"
+                android:text="Rotate" />
+
+            <Button
+                android:id="@+id/trim_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="Trim" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/save_share_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_container">
+
+
+            <VideoView
+                android:id="@+id/raw_video"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_margin="16dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:id="@+id/save_share_container"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <Button
+                android:layout_width="0dp"
+                android:id="@+id/save_button"
+                android:layout_weight="1"
+                android:layout_margin="8dp"
+                android:text="Save"
+                android:enabled="false"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:id="@+id/share_button"
+                android:text="Share"
+                android:enabled="false"
+                android:layout_margin="8dp"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
